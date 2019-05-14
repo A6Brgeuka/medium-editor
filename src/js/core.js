@@ -155,7 +155,7 @@
         } else if (MediumEditor.util.isKey(event, MediumEditor.util.keyCode.BACKSPACE) &&
                 MediumEditor.util.isMediumEditorElement(node.parentElement) &&
                 !node.previousElementSibling &&
-                node.nextElementSibling &&
+                (node.nextElementSibling && node.nextElementSibling !== node.parentElement.querySelector('.medium-insert-buttons')) &&
                 isEmpty.test(node.innerHTML)) {
 
             // when cursor is in the first element, it's empty and user presses backspace,
