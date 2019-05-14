@@ -6788,14 +6788,19 @@ MediumEditor.extensions = {};
         } else if (MediumEditor.util.isKey(event, MediumEditor.util.keyCode.BACKSPACE) &&
                 MediumEditor.util.isMediumEditorElement(node.parentElement) &&
                 !node.previousElementSibling &&
-                (node.nextElementSibling && node.nextElementSibling !== node.parentElement.querySelector('.medium-insert-buttons')) &&
+                node.nextElementSibling &&
                 isEmpty.test(node.innerHTML)) {
 
-            // when cursor is in the first element, it's empty and user presses backspace,
-            // do delete action instead to get rid of the first element and move caret to 2nd
-            event.preventDefault();
-            MediumEditor.selection.moveCursor(this.options.ownerDocument, node.nextSibling);
-            node.parentElement.removeChild(node);
+            if (node.nextElementSibling !== node.parentElement.querySelector('.medium-insert-buttons')) {
+                // when cursor is in the first element, it's empty and user presses backspace,
+                // do delete action instead to get rid of the first element and move caret to 2nd
+                event.preventDefault();
+                MediumEditor.selection.moveCursor(this.options.ownerDocument, node.nextSibling);
+                node.parentElement.removeChild(node);
+            } else {
+                event.preventDefault();
+            }
+
         }
     }
 
